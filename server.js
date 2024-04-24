@@ -23,12 +23,12 @@ const init = async () => {
 
 const connect = async () => {
   await mongoose.connect(process.env.MONGODB_URI);
-  console.log('Connected to MongoDB\n');
+  console.log('Connected to CRM\n');
 
   await init();
 
   await mongoose.disconnect();
-  console.log('\nMongoDB Disconnected');
+  console.log('\nCRM Disconnected');
 
   process.exit();
 }
@@ -78,6 +78,13 @@ const deleteCustomer = async (id) => {
   }
 }
 
+const returnToMenu = async (choice) => {
+  if (choice === "0") {
+    console.clear();
+    await init();
+  }
+}
+
 const checkUserChoice = async () => {
   if (userInput === "1") {
     console.clear();
@@ -88,6 +95,8 @@ const checkUserChoice = async () => {
       await createCustomer(name, age);
       console.clear();
       console.log('SUCCESSFULLY CREATED CUSTOMER');
+      const choice = prompt("Enter 0 to return to the menu: ");
+      await returnToMenu(choice);
     } else {
       // Prints an error handling message to user then
       // User will be prompted until a name AND age is entered to be able to create a customer
@@ -100,11 +109,15 @@ const checkUserChoice = async () => {
       // Creates the user on while loop exit
       await createCustomer(name, age);
       console.clear();
-      console.log('Successfully created a customer');
+      console.log('SUCCESSFULLY CREATED CUSTOMER');
+      const choice = prompt("Enter 0 to return to the menu: ");
+      await returnToMenu(choice);
     }
   } else if (userInput === "2") {
     console.clear();
     await findCustomers();
+    const choice = prompt("Enter 0 to return to the menu: ");
+    await returnToMenu(choice);
   } else if (userInput === "3") {
     console.clear();
     await findCustomers();
@@ -123,17 +136,23 @@ const checkUserChoice = async () => {
         const name = prompt("Enter new name: ");
         await updateCustomer(id, name);
         console.log('--NEW CUSTOMER NAME: ' + name);
+        const choice = prompt("Enter 0 to return to the menu: ");
+        await returnToMenu(choice);
       } else if (updateChoice === "2") {
         console.clear();
         let age = Number(prompt("Enter new age: "));
         await updateCustomer(id, undefined, age);
         console.log('--NEW CUSTOMER AGE: ' + age);
+        const choice = prompt("Enter 0 to return to the menu: ");
+        await returnToMenu(choice);
       } else if (updateChoice === "3") {
         console.clear();
         const name = prompt("Enter new name: ");
         let age = Number(prompt("Enter new age: "));
         await updateCustomer(id, name, age);
         console.log('--NEW CUSTOMER INFO:\n' + 'Name: ' + name + '\nAge: ' + age);
+        const choice = prompt("Enter 0 to return to the menu: ");
+        await returnToMenu(choice);
       }
     }
   } else if (userInput === "4") {
@@ -144,6 +163,8 @@ const checkUserChoice = async () => {
 
     if (id) {
       await deleteCustomer(id);
+      const choice = prompt("Enter 0 to return to the menu: ");
+      await returnToMenu(choice);
     }
   } else if (userInput === "5") {
     mongoose.disconnect();
