@@ -74,7 +74,7 @@ const updateCustomer = async (id, name, age) => {
 const deleteCustomer = async (id) => {
   if (id) {
     const customerToDelete = await Customer.findByIdAndDelete(id);
-    console.log('Customer successfully deleted');
+    console.log('SUCCESSFULLY DELETED');
   }
 }
 
@@ -87,7 +87,7 @@ const checkUserChoice = async () => {
     if (name && age) {
       await createCustomer(name, age);
       console.clear();
-      console.log('Successfully created a customer');
+      console.log('SUCCESSFULLY CREATED CUSTOMER');
     } else {
       // Prints an error handling message to user then
       // User will be prompted until a name AND age is entered to be able to create a customer
@@ -135,7 +135,20 @@ const checkUserChoice = async () => {
         await updateCustomer(id, name, age);
         console.log('--NEW CUSTOMER INFO:\n' + 'Name: ' + name + '\nAge: ' + age);
       }
+    } else {
+      console.log("Enter an id to continue");
     }
+  } else if (userInput === "4") {
+    console.clear();
+    await findCustomers();
+    console.log("\n");
+    const id = prompt('Please enter the id of the customer you want to delete: ');
+
+    if (id) {
+      await deleteCustomer(id);
+    }
+  } else if (userInput === "5") {
+    mongoose.disconnect();
   }
 }
 
