@@ -135,8 +135,6 @@ const checkUserChoice = async () => {
         await updateCustomer(id, name, age);
         console.log('--NEW CUSTOMER INFO:\n' + 'Name: ' + name + '\nAge: ' + age);
       }
-    } else {
-      console.log("Enter an id to continue");
     }
   } else if (userInput === "4") {
     console.clear();
