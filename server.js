@@ -22,7 +22,7 @@ const init = async () => {
     if (name && age) {
       await createCustomer(name, age);
       console.clear();
-      console.log('Successfully created a customer');
+      console.log('Successfully created a customer\n');
     } else {
       while (!(name && age)) {
         console.clear();
@@ -30,6 +30,9 @@ const init = async () => {
         name = prompt('Enter a customer name: ');
         age = prompt('Enter customer age: ');
       }
+      await createCustomer(name, age);
+      console.clear();
+      console.log('Successfully created a customer\n');
     }
   }
 }
